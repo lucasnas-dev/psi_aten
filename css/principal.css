@@ -1,0 +1,83 @@
+/* Estilos globais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container principal */
+.container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Estilo do menu */
+.menu {
+    background-color: #007bff;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu ul li {
+    margin: 20px 0;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.menu ul li a:hover {
+    background-color: #0056b3;
+}
+
+/* Conteúdo principal */
+.conteudo-principal {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 200px;
+    text-align: center;
+    overflow-y: auto;
+}
+
+.conteudo-principal h1 {
+    color: #007bff;
+}
+
+.conteudo-principal p {
+    color: #555;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .menu {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .conteudo-principal {
+        margin-left: 0;
+        margin-top: 60px;
+    }
+}

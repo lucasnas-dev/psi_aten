@@ -1,0 +1,101 @@
+/* Contêiner para centralizar o formulário */
+.editar-perfil-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Altura mínima para ocupar a tela inteira */
+    background-color: #f0f4f8; /* Cor de fundo apenas para este contêiner */
+}
+
+/* Contêiner principal do formulário */
+.editar-perfil-container {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+/* Título */
+.editar-perfil-container h1 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Estilo do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+/* Botões */
+.form-botoes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-botoes button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#salvarPerfil {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+#salvarPerfil:hover {
+    background-color: #218838;
+}
+
+#cancelarEdicao {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+#cancelarEdicao:hover {
+    background-color: #c82333;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .editar-perfil-container {
+        padding: 15px;
+    }
+
+    .form-botoes {
+        flex-direction: column;
+    }
+
+    .form-botoes button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

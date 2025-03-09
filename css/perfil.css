@@ -1,0 +1,66 @@
+/* Container do perfil (ocupa toda a tela dentro do principal) */
+.perfil-container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* Fundo branco */
+    padding: 20px;
+    box-sizing: border-box; /* Inclui padding na largura e altura */
+    overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna */
+}
+
+/* Cabeçalho do perfil */
+.perfil-header {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    gap: 20px; /* Espaçamento entre a foto e o título */
+    margin-bottom: 20px;
+}
+
+/* Foto do perfil */
+.perfil-avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Foto redonda */
+    border: 2px solid #ddd; /* Borda cinza */
+    display: block; /* Transforma a imagem em um elemento de bloco */
+}
+
+/* Título do perfil */
+.perfil-container h1 {
+    color: #007bff; /* Azul */
+    margin: 0; /* Remove margem padrão do h1 */
+}
+
+/* Informações do perfil */
+.perfil-info {
+    text-align: center; /* Centraliza o texto */
+    margin-bottom: 20px; /* Espaçamento abaixo das informações */
+}
+
+.perfil-info p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.perfil-info strong {
+    color: #333;
+}
+
+/* Botão Editar Perfil */
+#editarPerfilButton {
+    padding: 8px 16px; /* Tamanho menor */
+    background-color: #007bff; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px; /* Fonte menor */
+    cursor: pointer;
+}
+
+#editarPerfilButton:hover {
+    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+}
