@@ -83,3 +83,12 @@ body {
 .cadastro-container p a:hover {
     text-decoration: underline;
 }
+/* Estilos para mensagens de erro */
+.error-message {
+    color: red;
+    font-size: 0.875em;
+    display: none;
+}
+.error-input {
+    border: 1px solid red;
+}

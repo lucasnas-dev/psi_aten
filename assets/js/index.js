@@ -79,8 +79,8 @@ document.addEventListener("DOMContentLoaded", function() {
             // Login bem-sucedido
             errorMessage.textContent = ""; // Limpa mensagem de erro
             localStorage.setItem("psicologoLogado", JSON.stringify(usuarioLogado)); // Salva o usuário logado
-            alert("Login realizado com sucesso! Redirecionando para o perfil...");
-            window.location.href = "principal.html"; // Redireciona para a página principal
+            alert("Login realizado com sucesso! Redirecionando para o painel...");
+            window.location.href = "../pages/painel.html"; // Redireciona para a página painel.html
         } else {
             // Login falhou
             errorMessage.textContent = "Usuário ou senha incorretos. Tente novamente.";

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const conteudoPrincipal = document.getElementById("conteudoPrincipal");
+    const conteudopainel = document.getElementById("conteudopainel");
     const links = document.querySelectorAll('.menu ul li a');
     const sairLink = document.getElementById("sair");
 
@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(data => {
                 // Insere o conteúdo da página
-                conteudoPrincipal.innerHTML = data;
+                conteudopainel.innerHTML = data;
 
                 // Extrair e executar scripts
-                const scripts = conteudoPrincipal.querySelectorAll("script");
+                const scripts = conteudopainel.querySelectorAll("script");
                 scripts.forEach(script => {
                     const novoScript = document.createElement("script");
                     if (script.src) {
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => {
                 console.error('Erro ao carregar a página:', error);
-                conteudoPrincipal.innerHTML = `<p>Erro ao carregar a página. Tente novamente mais tarde.</p>`;
+                conteudopainel.innerHTML = `<p>Erro ao carregar a página. Tente novamente mais tarde.</p>`;
             });
     }
 
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Adiciona event listener ao link "Sair"
     sairLink.addEventListener("click", function(event) {
         event.preventDefault();
-        window.location.href = "index.html"; // Redireciona para a página de login
+        window.location.href = "../index.html"; // Redireciona para a página de login
     });
 
     // Carregar a página inicial por padrão

@@ -1,7 +1,7 @@
-// Função principal que será executada quando a página de perfil for carregada
+// Função painel que será executada quando a página de perfil for carregada
 function carregarPerfil() {
     // Referências aos elementos
-    const conteudoPrincipal = document.getElementById("conteudoPrincipal"); // Contêiner dinâmico
+    const conteudopainel = document.getElementById("conteudopainel"); // Contêiner dinâmico
     const perfilTitulo = document.getElementById("perfilTitulo");
     const perfilNome = document.getElementById("perfilNome");
     const perfilCPF = document.getElementById("perfilCPF");
@@ -25,7 +25,7 @@ function carregarPerfil() {
     } else {
         // Caso não haja dados no localStorage, exibir uma mensagem ou redirecionar
         alert("Nenhum psicólogo logado. Redirecionando para a página de login...");
-        window.location.href = "index.html"; // Redireciona para a página de login
+        window.location.href = "../index.html"; // Redireciona para a página de login
     }
 
     // Configurar o botão "Editar Perfil" para carregar o formulário dinamicamente
@@ -34,7 +34,7 @@ function carregarPerfil() {
             event.preventDefault();
 
             // Carregar o formulário de edição dinamicamente
-            fetch("editar-perfil.html")
+            fetch("../pages/editar-perfil.html")
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Erro ao carregar o formulário de edição.");
@@ -42,7 +42,7 @@ function carregarPerfil() {
                     return response.text();
                 })
                 .then(data => {
-                    conteudoPrincipal.innerHTML = data; // Substituir o conteúdo pelo formulário
+                    conteudopainel.innerHTML = data; // Substituir o conteúdo pelo formulário
 
                     // Configurar os eventos do formulário de edição
                     configurarFormularioEdicao();
@@ -91,7 +91,7 @@ function configurarFormularioEdicao() {
 
 // Verificar se a página de perfil foi carregada diretamente (não dinamicamente)
 if (document.getElementById("perfilTitulo")) {
-    carregarPerfil(); // Executa a função principal se o elemento existir
+    carregarPerfil(); // Executa a função painel se o elemento existir
 }
 
 // Exportar a função para ser chamada externamente

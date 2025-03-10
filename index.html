@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistema de Atendimento Psicológico</title>
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/index.css">
-    <script src="js/index.js"></script>
-    </head>
+    <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/index.css">
+
+</head>
 <body>
     <div class="login-container">
         <h1>Bem-vindo</h1>
         <p>Faça login para acessar o sistema.</p>
         <!-- Formulário de login -->
         <form id="loginForm">
-            <label for="login">Usuário ou CPF:</label>
-            <input type="text" id="login" name="login" placeholder="Digite seu usuário ou CPF" required>
+            <label for="login">CPF:</label>
+            <input type="text" id="login" name="login" placeholder="Digite seu CPF" required autocomplete="username">
             
             <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
             
             <button type="submit" id="loginButton">Entrar</button>
         </form>
-        <p>Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
-    </div>    
+        <p>Não tem conta? <a href="pages/cadastro.html">Cadastre-se</a></p>
+    </div> 
+    <script src="assets/js/index.js"></script>   
 </body>
 </html>
