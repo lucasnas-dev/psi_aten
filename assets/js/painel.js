@@ -1,7 +1,12 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const conteudopainel = document.getElementById("conteudopainel");
     const links = document.querySelectorAll('.menu ul li a');
     const sairLink = document.getElementById("sair");
+
+    if (!conteudopainel) {
+        console.error("Elemento 'conteudopainel' não foi encontrado.");
+        return;
+    }
 
     // Função para carregar conteúdo dinamicamente
     function carregarConteudo(pagina) {
@@ -13,49 +18,78 @@ document.addEventListener("DOMContentLoaded", function() {
                 return response.text();
             })
             .then(data => {
-                // Insere o conteúdo da página
+                // Insere o conteúdo da página carregada no painel
                 conteudopainel.innerHTML = data;
-
-                // Extrair e executar scripts
-                const scripts = conteudopainel.querySelectorAll("script");
-                scripts.forEach(script => {
-                    const novoScript = document.createElement("script");
-                    if (script.src) {
-                        // Se o script tiver um src, carregue o arquivo externo
-                        novoScript.src = script.src;
-                    } else {
-                        // Se for um script inline, copie o conteúdo
-                        novoScript.textContent = script.textContent;
+    
+                // Lógica específica para o perfil.html
+                if (pagina === "perfil") {
+                    const scriptJaCarregado = document.querySelector('script[src="../assets/js/perfil.js"]');
+                    if (!scriptJaCarregado) {
+                        const scriptPerfil = document.createElement("script");
+                        scriptPerfil.src = "../assets/js/perfil.js";
+                        document.body.appendChild(scriptPerfil);
+    
+                        scriptPerfil.onload = () => {
+                            if (typeof window.carregarPerfil === "function") {
+                                console.log("perfil.js carregado. Executando carregarPerfil.");
+                                window.carregarPerfil();
+                            }
+    
+                            // Adicionar evento ao botão "Editar Perfil" após carregar o perfil.html
+                            const botaoEditarPerfil = document.querySelector('#editar-perfil');
+                            if (botaoEditarPerfil) {
+                                botaoEditarPerfil.addEventListener("click", function (event) {
+                                    event.preventDefault();
+                                    carregarConteudo("editar-perfil"); // Carrega o editar-perfil.html
+                                });
+                            } else {
+                                console.warn("Botão 'Editar Perfil' não encontrado após carregar perfil.html.");
+                            }
+                        };
+                    } else if (typeof window.carregarPerfil === "function") {
+                        window.carregarPerfil();
+    
+                        // Adicionar evento ao botão "Editar Perfil" após carregar o perfil.html
+                        const botaoEditarPerfil = document.querySelector('#editar-perfil');
+                        if (botaoEditarPerfil) {
+                            botaoEditarPerfil.addEventListener("click", function (event) {
+                                event.preventDefault();
+                                carregarConteudo("editar-perfil"); // Carrega o editar-perfil.html
+                            });
+                        } else {
+                            console.warn("Botão 'Editar Perfil' não encontrado após carregar perfil.html.");
+                        }
                     }
-                    document.body.appendChild(novoScript).remove();
-                });
-
-                // Verificar se a página carregada é o perfil e executar o código correspondente
-                if (pagina === "perfil" && typeof window.carregarPerfil === "function") {
-                    window.carregarPerfil(); // Executa a função do perfil
                 }
+    
             })
             .catch(error => {
-                console.error('Erro ao carregar a página:', error);
-                conteudopainel.innerHTML = `<p>Erro ao carregar a página. Tente novamente mais tarde.</p>`;
+                console.error("Erro ao carregar a página:", error);
+                conteudopainel.innerHTML = `
+                    <p style="color: red; text-align: center;">
+                        Erro ao carregar a página. Por favor, tente novamente mais tarde.
+                    </p>`;
             });
     }
-
     // Adiciona event listeners aos links do menu
     links.forEach(link => {
-        link.addEventListener("click", function(event) {
+        link.addEventListener("click", function (event) {
             event.preventDefault();
             const pagina = this.getAttribute("data-page");
-            carregarConteudo(pagina);
+            carregarConteudo(pagina); // Carrega a página correspondente dinamicamente
         });
     });
 
     // Adiciona event listener ao link "Sair"
-    sairLink.addEventListener("click", function(event) {
-        event.preventDefault();
-        window.location.href = "../index.html"; // Redireciona para a página de login
-    });
+    if (sairLink) {
+        sairLink.addEventListener("click", function (event) {
+            event.preventDefault();
+            window.location.href = "../index.html"; // Redireciona para a página de login
+        });
+    } else {
+        console.warn("Link 'Sair' não encontrado.");
+    }
 
     // Carregar a página inicial por padrão
-    carregarConteudo('inicio');
+    carregarConteudo("inicio");
 });

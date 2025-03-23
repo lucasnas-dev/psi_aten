@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil do Psicólogo</title>
+    <!-- Link para o arquivo de estilos CSS -->
     <link rel="stylesheet" href="../assets/css/perfil.css">
 </head>
 <body>
-   <!-- Área painel para carregar conteúdo -->
-    <div id="conteudopainel">
-        <!-- Cabeçalho com foto e título -->
-        <div class="perfil-header">
-            <div class="perfil-avatar">
-                <img src="img/logo.psi1.xcf" alt="Foto de Perfil" id="perfilFoto">
-            </div>
-            <h1 id="perfilTitulo">Nome do Psicólogo</h1>
+    <!-- Cabeçalho do perfil -->
+    <header class="perfil-header">
+        <!-- Foto de perfil -->
+        <img src="../assets/img/default-avatar.png" alt="Foto de Perfil" id="foto-perfil" class="foto-perfil">
+        <!-- Nome do psicólogo -->
+        <h1 id="nome-psicologo">Carregando...</h1>
+    </header>
+    
+    <!-- Informações do perfil -->
+    <section class="perfil-info">
+        <div class="campo">
+            <label>CPF:</label>
+            <span id="cpf">Carregando...</span>
         </div>
-
-        <!-- Informações do perfil -->
-        <div class="perfil-info">
-            <p><strong>Nome:</strong> <span id="perfilNome">Seu Nome</span></p>
-            <p><strong>CPF:</strong> <span id="perfilCPF">---</span></p>
-            <p><strong>CRP:</strong> <span id="perfilCRP">---</span></p>
-            <p><strong>Email:</strong> <span id="perfilEmail">email@exemplo.com</span></p>
+        <div class="campo">
+            <label>CRP:</label>
+            <span id="crp">Carregando...</span>
         </div>
-
-        <!-- Botão para editar o perfil -->
-        <button id="editarPerfilButton">Editar Perfil</button>
-    </div>
-
-    <!-- Script JavaScript -->
-    <script src="../assets/js/perfil.js"></script>
+        <div class="campo">
+            <label>Email:</label>
+            <span id="email">Carregando...</span>
+        </div>
+        <!-- Botão editar perfil -->
+        <button id="editar-perfil">Editar Perfil</button>
+    </section>
 </body>
 </html>

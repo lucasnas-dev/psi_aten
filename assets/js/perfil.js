@@ -1,98 +1,52 @@
-// Função painel que será executada quando a página de perfil for carregada
-function carregarPerfil() {
-    // Referências aos elementos
-    const conteudopainel = document.getElementById("conteudopainel"); // Contêiner dinâmico
-    const perfilTitulo = document.getElementById("perfilTitulo");
-    const perfilNome = document.getElementById("perfilNome");
-    const perfilCPF = document.getElementById("perfilCPF");
-    const perfilCRP = document.getElementById("perfilCRP");
-    const perfilEmail = document.getElementById("perfilEmail");
-    const editarPerfilButton = document.getElementById("editarPerfilButton");
+// URL da rota protegida para obter os dados do perfil
+const urlPerfil = "http://localhost:3000/api/perfil";
 
-    // Recuperar os dados do psicólogo logado do localStorage
-    const psicologoLogado = JSON.parse(localStorage.getItem("psicologoLogado"));
+// Função global para carregar os dados do perfil
+window.carregarPerfil = function() {
+    console.log("Função carregarPerfil foi chamada!");
 
-    // Verificar se há dados do psicólogo logado
-    if (psicologoLogado) {
-        // Carregar o nome do psicólogo no título
-        if (perfilTitulo) perfilTitulo.textContent = psicologoLogado.nome;
+    fetch(urlPerfil, {
+        method: "GET",
+        credentials: "include", // Envia cookies automaticamente
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}` // Adiciona o token no cabeçalho
+        }
+    })
+    .then(response => {
+        console.log("Resposta recebida do servidor:", response.status);
+        if (!response.ok) {
+            if (response.status === 401) throw new Error("Você precisa fazer login.");
+            if (response.status === 404) throw new Error("Dados do perfil não encontrados.");
+            throw new Error("Erro ao obter os dados do perfil.");
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Dados recebidos do backend:", data);
 
-        // Carregar as informações do psicólogo
-        if (perfilNome) perfilNome.textContent = psicologoLogado.nome;
-        if (perfilCPF) perfilCPF.textContent = psicologoLogado.cpf;
-        if (perfilCRP) perfilCRP.textContent = psicologoLogado.crp;
-        if (perfilEmail) perfilEmail.textContent = psicologoLogado.email;
-    } else {
-        // Caso não haja dados no localStorage, exibir uma mensagem ou redirecionar
-        alert("Nenhum psicólogo logado. Redirecionando para a página de login...");
-        window.location.href = "../index.html"; // Redireciona para a página de login
-    }
+        // Verifica e preenche as informações do perfil no HTML
+        const nome = document.getElementById("nome-psicologo");
+        const cpf = document.getElementById("cpf");
+        const crp = document.getElementById("crp");
+        const email = document.getElementById("email");
+        const fotoPerfil = document.getElementById("foto-perfil");
 
-    // Configurar o botão "Editar Perfil" para carregar o formulário dinamicamente
-    if (editarPerfilButton) {
-        editarPerfilButton.addEventListener("click", function(event) {
-            event.preventDefault();
+        if (nome) nome.textContent = data.nome || "Nome não disponível";
+        if (cpf) cpf.textContent = data.cpf || "CPF não disponível";
+        if (crp) crp.textContent = data.crp || "CRP não disponível";
+        if (email) email.textContent = data.email || "Email não disponível";
+        if (fotoPerfil) {
+            fotoPerfil.src = data.foto || "../assets/img/default-avatar.png"; // Foto padrão
+        }
+    })
+    .catch(error => {
+        console.error("Erro ao carregar perfil:", error.message);
 
-            // Carregar o formulário de edição dinamicamente
-            fetch("../pages/editar-perfil.html")
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Erro ao carregar o formulário de edição.");
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    conteudopainel.innerHTML = data; // Substituir o conteúdo pelo formulário
+        // Exibe mensagem de erro amigável no HTML
+        const errorMessage = document.createElement("p");
+        errorMessage.style.color = "red";
+        errorMessage.textContent = error.message;
+        document.body.appendChild(errorMessage);
+    });
+};
 
-                    // Configurar os eventos do formulário de edição
-                    configurarFormularioEdicao();
-                })
-                .catch(error => {
-                    console.error("Erro ao carregar o formulário de edição:", error);
-                });
-        });
-    }
-}
-
-// Configurar os eventos do formulário de edição
-function configurarFormularioEdicao() {
-    const salvarPerfilButton = document.getElementById("salvarPerfil");
-    const cancelarEdicaoButton = document.getElementById("cancelarEdicao");
-
-    // Salvar alterações no perfil
-    if (salvarPerfilButton) {
-        salvarPerfilButton.addEventListener("click", function () {
-            const nomeCompleto = document.getElementById("nomeCompleto").value;
-            const cpf = document.getElementById("cpf").value;
-            const crp = document.getElementById("crp").value;
-            const email = document.getElementById("email").value;
-
-            // Atualizar os dados no localStorage
-            const psicologoLogado = {
-                nome: nomeCompleto,
-                cpf: cpf,
-                crp: crp,
-                email: email,
-            };
-            localStorage.setItem("psicologoLogado", JSON.stringify(psicologoLogado));
-
-            alert("Perfil atualizado com sucesso!");
-
-            // Recarregar o perfil
-            carregarPerfil();
-        });
-    }
-
-    // Cancelar edição e voltar ao perfil
-    if (cancelarEdicaoButton) {
-        cancelarEdicaoButton.addEventListener("click", carregarPerfil);
-    }
-}
-
-// Verificar se a página de perfil foi carregada diretamente (não dinamicamente)
-if (document.getElementById("perfilTitulo")) {
-    carregarPerfil(); // Executa a função painel se o elemento existir
-}
-
-// Exportar a função para ser chamada externamente
-window.carregarPerfil = carregarPerfil;

@@ -1,66 +1,78 @@
-/* Container do perfil (ocupa toda a tela dentro do principal) */
-.perfil-container {
-    width: 100%;
-    height: 100%;
-    background-color: #fff; /* Fundo branco */
-    padding: 20px;
-    box-sizing: border-box; /* Inclui padding na largura e altura */
-    overflow-y: auto; /* Adiciona rolagem vertical se necessário */
-    display: flex;
-    flex-direction: column; /* Organiza os itens em coluna */
+/* Estilo geral da página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5; /* Fundo claro */
+    color: #333; /* Texto escuro */
 }
 
 /* Cabeçalho do perfil */
 .perfil-header {
     display: flex;
     align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    gap: 20px; /* Espaçamento entre a foto e o título */
-    margin-bottom: 20px;
+    gap: 15px; /* Espaçamento entre foto e título */
+    margin-bottom: 30px; /* Espaçamento abaixo do cabeçalho */
+    padding-left: 10px; /* Espaçamento extra à esquerda */
 }
 
 /* Foto do perfil */
-.perfil-avatar img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; /* Foto redonda */
-    border: 2px solid #ddd; /* Borda cinza */
-    display: block; /* Transforma a imagem em um elemento de bloco */
+.foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* Torna a foto redonda */
+    border: 2px solid #007bff; /* Borda azul */
+    object-fit: cover; /* Ajusta a imagem ao círculo */
 }
 
-/* Título do perfil */
-.perfil-container h1 {
+/* Nome do perfil */
+.perfil-header h1 {
+    font-size: 24px;
+    margin: 0;
     color: #007bff; /* Azul */
-    margin: 0; /* Remove margem padrão do h1 */
 }
 
-/* Informações do perfil */
+/* Seção de informações do perfil */
 .perfil-info {
-    text-align: center; /* Centraliza o texto */
-    margin-bottom: 20px; /* Espaçamento abaixo das informações */
+    display: flex;
+    flex-direction: column; /* Organiza os campos em coluna */
+    align-items: flex-start; /* Alinha à esquerda */
+    gap: 20px; /* Espaçamento confortável entre os campos */
+    padding-left: 10px; /* Espaçamento adicional à esquerda */
 }
 
-.perfil-info p {
-    margin: 10px 0;
+/* Campo de informação */
+.campo {
+    display: flex;
+    flex-direction: column; /* Alinha o rótulo e o valor */
+    gap: 5px; /* Espaçamento entre label e span */
     font-size: 16px;
-    color: #555;
 }
 
-.perfil-info strong {
-    color: #333;
+.campo label {
+    font-weight: bold;
+    color: #555; /* Cinza escuro */
 }
 
-/* Botão Editar Perfil */
-#editarPerfilButton {
-    padding: 8px 16px; /* Tamanho menor */
-    background-color: #007bff; /* Azul */
+.campo span {
+    background-color: #f9f9f9; /* Fundo claro */
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd; /* Borda clara */
+}
+
+/* Botão editar perfil */
+#editar-perfil {
+    margin-top: 20px; /* Espaçamento acima do botão */
+    padding: 10px 15px; /* Tamanho confortável */
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 14px; /* Fonte menor */
+    font-size: 14px;
     cursor: pointer;
+    transition: background-color 0.3s ease; /* Suaviza a mudança de cor */
 }
 
-#editarPerfilButton:hover {
-    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+#editar-perfil:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
 }

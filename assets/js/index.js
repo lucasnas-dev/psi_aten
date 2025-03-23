@@ -1,10 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
-    const loginInput = document.getElementById("login");
-    const senhaInput = document.getElementById("senha");
-    const errorMessage = document.createElement("p"); // Elemento para exibir mensagens de erro
-    errorMessage.style.color = "red";
-    loginForm.appendChild(errorMessage);
+    const loginInput = document.getElementById("cpfInput");
+    const senhaInput = document.getElementById("senhaInput");
+    const errorMessage = document.getElementById("loginError");
 
     // Função para formatar o CPF
     function formatCPF(value) {
@@ -15,75 +13,63 @@ document.addEventListener("DOMContentLoaded", function() {
             .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Adiciona o traço
     }
 
-    // Função para validar o CPF
+    // Validar CPF no envio
     function validarCPF(cpf) {
         cpf = cpf.replace(/\D/g, ''); // Remove formatação
-        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false; // Verifica tamanho e dígitos repetidos
-
-        // Cálculo dos dígitos verificadores
+        if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false; // Tamanho e repetição
         let soma = 0;
-        for (let i = 0; i < 9; i++) {
-            soma += parseInt(cpf.charAt(i)) * (10 - i);
-        }
+        for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
         let resto = (soma * 10) % 11;
         if (resto === 10 || resto === 11) resto = 0;
         if (resto !== parseInt(cpf.charAt(9))) return false;
-
         soma = 0;
-        for (let i = 0; i < 10; i++) {
-            soma += parseInt(cpf.charAt(i)) * (11 - i);
-        }
+        for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
         resto = (soma * 10) % 11;
         if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.charAt(10))) return false;
-
-        return true;
+        return resto === parseInt(cpf.charAt(10));
     }
 
-    // Event listener para formatar o CPF enquanto digita
-    loginInput.addEventListener("input", function(event) {
+    // Formatar CPF enquanto digita
+    loginInput.addEventListener("input", function () {
         loginInput.value = formatCPF(loginInput.value);
     });
 
-    // Event listener para aceitar apenas números
-    loginInput.addEventListener("keypress", function(event) {
-        const charCode = event.charCode;
-        if (charCode < 48 || charCode > 57) {
-            event.preventDefault();
-        }
-    });
-
-    // Evento de envio do formulário de login
-    loginForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Impede o envio padrão do formulário
-
-        // Capturar os dados do formulário
-        const cpf = loginInput.value.replace(/\D/g, ''); // Remove formatação do CPF
+    // Submeter formulário
+    loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const cpf = loginInput.value.replace(/\D/g, '');
         const senha = senhaInput.value;
 
-        // Validar o CPF
+        // Validação
         if (!validarCPF(cpf)) {
-            errorMessage.textContent = "CPF inválido. Por favor, insira um CPF válido.";
+            errorMessage.textContent = "CPF inválido.";
+            errorMessage.style.display = "block";
             return;
         }
 
-        // Recuperar a lista de usuários do localStorage
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-        // Verificar se há um usuário com o CPF e senha correspondentes
-        const usuarioLogado = usuarios.find(usuario => 
-            usuario.cpf === cpf && usuario.senha === senha
-        );
-
-        if (usuarioLogado) {
+        // Envio ao backend
+        fetch("http://localhost:3000/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cpf, senha })
+        })
+        .then(response => {
+            if (!response.ok) {
+                // Diferentes mensagens para status de erro
+                if (response.status === 401) throw new Error("CPF ou senha incorretos.");
+                if (response.status === 500) throw new Error("Erro no servidor.");
+                throw new Error("Erro desconhecido.");
+            }
+            return response.json();
+        })
+        .then(() => {
             // Login bem-sucedido
-            errorMessage.textContent = ""; // Limpa mensagem de erro
-            localStorage.setItem("psicologoLogado", JSON.stringify(usuarioLogado)); // Salva o usuário logado
-            alert("Login realizado com sucesso! Redirecionando para o painel...");
-            window.location.href = "../pages/painel.html"; // Redireciona para a página painel.html
-        } else {
-            // Login falhou
-            errorMessage.textContent = "Usuário ou senha incorretos. Tente novamente.";
-        }
+            alert(`Login bem-sucedido!`);
+            window.location.href = "pages/painel.html"; // Redirecionar para a página do painel
+        })
+        .catch(error => {
+            errorMessage.textContent = error.message;
+            errorMessage.style.display = "block";
+        });
     });
 });

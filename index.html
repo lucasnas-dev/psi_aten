@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistema de Atendimento Psicológico</title>
-    <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon">
 
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
     <div class="login-container">
         <h1>Bem-vindo</h1>
         <p>Faça login para acessar o sistema.</p>
-        <!-- Formulário de login -->
         <form id="loginForm">
-            <label for="login">CPF:</label>
-            <input type="text" id="login" name="login" placeholder="Digite seu CPF" required autocomplete="username">
+            <label for="cpfInput">CPF:</label>
+            <input type="text" id="cpfInput" name="cpf" placeholder="Digite seu CPF" required 
+                   autocomplete="username" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" aria-label="Campo de CPF">
             
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required autocomplete="current-password">
+            <label for="senhaInput">Senha:</label>
+            <input type="password" id="senhaInput" name="senha" placeholder="Digite sua senha" required 
+                   autocomplete="current-password" aria-label="Campo de Senha">
             
             <button type="submit" id="loginButton">Entrar</button>
+            <span id="loginError" style="color: red; display: none;">CPF ou senha inválidos</span>
         </form>
         <p>Não tem conta? <a href="pages/cadastro.html">Cadastre-se</a></p>
     </div> 

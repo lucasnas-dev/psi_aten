@@ -56,6 +56,14 @@ body {
     outline: none;
 }
 
+/* Mensagens de erro */
+#loginForm p.error {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
 /* Botão */
 #loginButton {
     background-color: #007bff;
@@ -71,6 +79,16 @@ body {
 
 #loginButton:hover {
     background-color: #0056b3;
+}
+
+#loginButton:focus {
+    outline: 2px dashed #0056b3;
+    outline-offset: 2px;
+}
+
+#loginButton:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
 }
 
 /* Link para cadastro */

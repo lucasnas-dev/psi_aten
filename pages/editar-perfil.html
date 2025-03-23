@@ -4,37 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil</title>
-    <link rel="stylesheet" href="../assets/css/editar-perfil.css"> <!-- Estilo exclusivo do formulário -->
+    <!-- Link para o arquivo de estilos CSS -->
+    <link rel="stylesheet" href="../assets/css/editar-perfil.css">
 </head>
 <body>
     <!-- Wrapper para centralizar o formulário -->
     <div class="editar-perfil-wrapper">
-        <!-- Container painel do formulário -->
+        <!-- Container do formulário -->
         <div class="editar-perfil-container">
-            <h1>Editar Perfil</h1>
-
-            <form id="editarPerfilForm">
-                <!-- Campo: Nome Completo -->
-                <label for="nomeCompleto">Nome Completo:</label>
-                <input type="text" id="nomeCompleto" required>
-
-                <!-- Campo: CPF -->
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" required>
-
-                <!-- Campo: CRP -->
-                <label for="crp">CRP:</label>
-                <input type="text" id="crp" required>
-
-                <!-- Campo: Email -->
-                <label for="email">Email:</label>
-                <input type="email" id="email" required autocomplete="email">
-
-                <!-- Campo: Senha -->
-                <label for="senha">Senha:</label>
-                <input type="password" id="senha" required autocomplete="new-password">
-
-                <!-- Botões do Formulário -->
+                <form id="form-editar-perfil">
+                <div>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome">
+                </div>
+                <div>
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf">
+                </div>
+                <div>
+                    <label for="crp">CRP:</label>
+                    <input type="text" id="crp" name="crp">
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div>
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha">                                   
+                <!-- Botões -->
                 <div class="form-botoes">
                     <button type="button" id="salvarPerfil">Salvar Alterações</button>
                     <button type="button" id="cancelarEdicao">Cancelar</button>
@@ -43,7 +41,6 @@
         </div>
     </div>
 
-    <!-- Script JavaScript -->
     <script src="../assets/js/editar-perfil.js"></script>
-    </body>
+</body>
 </html>
